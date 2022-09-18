@@ -7,42 +7,45 @@ pipeline {
             }
         }
 
-        stage('frontend') {
-            parallel {
-                stage('test-coverage') {
-                    steps {
-                        sh 'echo "test-coverage"'
-                    }
-                }
-
-                stage('storybook') {
-                    steps {
-                        sh 'echo "storybook"'
-                    }
-                }
-
-                stage('check-code') {
-                    stages{
-                        stage('validate-code-changes') {
-                            steps {
-                                sh 'echo "validate-code-changes"'
-                            }
-                        }
-
-                        stage('build-prod-app') {
-                            steps {
-                                sh 'echo "build-prod-app"'
-                            }
-                        }
-
-                        stage('publish') {
-                            steps {
-                                sh 'echo "publish"'
-                            }
+        parallel {
+            stage('frontend') {
+                stages {
+                    stage('install-dependencies') {
+                        steps {
+                            sh 'echo "install-dependencies"'
                         }
                     }
                 }
 
+                parallel {
+                    stage('test-coverage') {
+                        steps {
+                            sh 'echo "test-coverage"'
+                        }
+                    }
+                    stage('storybook') {
+                        steps {
+                            sh 'echo "storybook"'
+                        }
+                    }
+
+                }
+            }
+
+            stage('backend') {
+                stages {
+                    stage('one') {
+                        step {
+                            sh 'echo "one"'
+                        }
+                    }
+
+                    stage('two') {
+                        step {
+                            sh 'echo "two"'
+                        }
+                    }
+                }
             }
         }
 
