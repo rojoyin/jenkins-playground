@@ -6,57 +6,18 @@ pipeline {
                 sh 'echo "stage one"'
             }
         }
-        stage('Parallel') {
+
+        stage('first-fork') {
             parallel {
-                stage('paraINpara') {
-                    steps {
-                        sh 'echo "nesting parallel not supported"'
+                stage('one') {
+                    step {
+                        sh 'echo "one"'
                     }
                 }
-                stage('seqINpara') {
-                    stages {
-                        stage('one') {
-                            steps {
-                                echo "stage one"
-                            }
-                        }
-                        stage('two') {
-                            steps {
-                                echo "stage one"
-                            }
-                        }
-                    }    
-                }
-            }
-        }
-        stage('Sequestial') {
-            stages {
-                stage('seqINseq') {
-                    stages {
-                        stage('one') {
-                            steps {
-                                echo "stage one"
-                            }
-                        }
-                        stage('two') {
-                            steps {
-                                echo "stage one"
-                            }
-                        }
-                    }  
-                }
-                stage('paraINseq') {
-                    parallel {
-                        stage('one') {
-                            steps {
-                                echo "stage one"
-                            }
-                        }
-                        stage('two') {
-                            steps {
-                                echo "stage one"
-                            }
-                        }
+
+                stage('two') {
+                    step {
+                        sh 'echo "two"'
                     }
                 }
             }
