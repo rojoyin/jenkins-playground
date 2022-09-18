@@ -22,8 +22,18 @@ pipeline {
                 }
 
                 stage('check-code') {
-                    steps {
-                        sh 'echo "check-code"'
+                    stages{
+                        stage('validate-code-changes') {
+                            steps {
+                                sh 'echo "validate-code-changes"'
+                            }
+                        }
+
+                        stage('build-prod-app') {
+                            steps {
+                                sh 'echo "build-prod-app"'
+                            }
+                        }
                     }
                 }
 
