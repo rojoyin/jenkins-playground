@@ -7,42 +7,27 @@ pipeline {
             }
         }
 
-        stage('processor') {
-
-                parallel {
-                    stage('frontend') {
-                        stages {
-                            stage('one') {
-                                steps {
-                                    sh 'echo "one"'
-                                }
-                            }
-
-                            stage('two') {
-                                steps {
-                                    sh 'echo "two"'
-                                }
+        stage('process') {
+            parallel {
+                stage('frontend') {
+                    stages {
+                        stage('one') {
+                            steps {
+                                sh 'echo "one"'
                             }
                         }
                     }
-                    stage('backend') {
-                        stages {
-                            stage('three') {
-                                steps {
-                                    sh 'echo "three"'
-                                }
 
-                            stage('four') {
-                                steps {
-                                    sh 'echo "four"'
-                                }
-                            }
-
+                    stages {
+                        stage('two') {
+                            steps {
+                                sh 'echo "two"'
                             }
                         }
                     }
+                    
                 }
-            
+            }
         }
     }
 }
