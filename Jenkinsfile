@@ -6,24 +6,29 @@ pipeline {
                 sh 'echo "prepare-ducttape"'
             }
         }
-        stage('Test') {
-            steps {
-                sh 'echo "testing your code"'
-            }
-        }
-        stage('Deploy') {
-            stages {
-                stage('Approval') {
+
+        stage('frontend') {
+            parallel {
+                stage('test-coverage') {
                     steps {
-                        sh 'echo "approve deployment"'
+                        sh 'echo "test-coverage"'
                     }
                 }
-                stage('Deployment') {
+
+                stage('storybook') {
                     steps {
-                        sh 'echo "deploying your code"'
+                        'echo "storybook"'
                     }
                 }
+
+                stage('check-code') {
+                    steps {
+                        'echo "check-code"'
+                    }
+                }
+
             }
         }
+
     }
 }
