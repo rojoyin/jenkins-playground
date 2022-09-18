@@ -7,7 +7,7 @@ pipeline {
             }
         }
 
-        stage('process') {
+        stage('parallel') {
             parallel {
                 stage('frontend') {
                     stages {
@@ -16,16 +16,29 @@ pipeline {
                                 sh 'echo "one"'
                             }
                         }
-                    }
 
-                    stages {
                         stage('two') {
                             steps {
                                 sh 'echo "two"'
                             }
                         }
                     }
-                    
+                }
+
+                stage('backend') {
+                    stages {
+                        stage('three') {
+                            steps {
+                                sh 'echo "three"'
+                            }
+                        }
+
+                        stage('four') {
+                            steps {
+                                sh 'echo "four"'
+                            }
+                        }
+                    }
                 }
             }
         }
