@@ -6,5 +6,20 @@ pipeline {
                 sh 'echo "stage one"'
             }
         }
+
+        stage('parallel') {
+            parallel {
+                stage('one') {
+                    steps {
+                        sh 'echo "one"'
+                    }
+                }
+                stage('two') {
+                    steps {
+                        sh 'echo "two"'
+                    }
+                }
+            }
+        }
     }
 }
