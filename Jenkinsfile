@@ -34,6 +34,12 @@ pipeline {
                                 sh 'echo "build-prod-app"'
                             }
                         }
+
+                        stage('publish') {
+                            steps {
+                                sh 'echo "publish"'
+                            }
+                        }
                     }
                 }
 
