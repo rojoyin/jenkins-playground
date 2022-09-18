@@ -8,7 +8,7 @@ pipeline {
         }
 
         stage('processor') {
-            parallel {
+
                 parallel {
                     stage('frontend') {
                         stages {
@@ -42,7 +42,7 @@ pipeline {
                         }
                     }
                 }
-            }
+            
         }
     }
 }
