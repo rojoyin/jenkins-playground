@@ -17,13 +17,13 @@ pipeline {
 
                 stage('storybook') {
                     steps {
-                        'echo "storybook"'
+                        sh 'echo "storybook"'
                     }
                 }
 
                 stage('check-code') {
                     steps {
-                        'echo "check-code"'
+                        sh 'echo "check-code"'
                     }
                 }
 
