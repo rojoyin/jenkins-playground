@@ -1,39 +1,48 @@
 pipeline {
     agent { label 'test' }
     stages {
-        stage('Normal') {
+        stage('prepare-ducttape') {
             steps {
-                sh 'echo "stage one"'
+                sh 'echo "prepare-ducttape"'
             }
         }
 
-        stage('frontend') {
-
-            parallel{
-
-        
-
-        stage('parallel1') {
+        stage('processor') {
             parallel {
-                stage('one') {
-                    steps {
-                        sh 'echo "one"'
+                parallel {
+                    stage('frontend') {
+                        stages {
+                            stage('one') {
+                                steps {
+                                    sh 'echo "one"'
+                                }
+                            }
+
+                            stage('two') {
+                                steps {
+                                    sh 'echo "two"'
+                                }
+                            }
+                        }
                     }
-                }
-                stage('two') {
-                    steps {
-                        sh 'echo "two"'
+                    stage('backend') {
+                        stages {
+                            stage('three') {
+                                steps {
+                                    sh 'echo "three"'
+                                }
+
+                            stage('four') {
+                                steps {
+                                    sh 'echo "four"'
+                                }
+                            }
+
+                            }
+                        }
                     }
                 }
             }
         }
-
-        stage('parallel2') {
-            steps {
-                sh 'echo "parallel2"'
-            }
-        }
-
-        }}
     }
 }
