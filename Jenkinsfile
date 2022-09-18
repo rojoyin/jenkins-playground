@@ -1,9 +1,9 @@
 pipeline {
     agent {label 'test'}
     stages {
-        stage('Build') {
+        stage('prepare-ducttape') {
             steps {
-                sh 'echo "building your code"'
+                sh 'echo "prepare-ducttape"'
             }
         }
         stage('Test') {
