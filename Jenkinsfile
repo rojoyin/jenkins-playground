@@ -7,7 +7,13 @@ pipeline {
             }
         }
 
-        stage('parallel') {
+        stage('frontend') {
+
+            parallel{
+
+        
+
+        stage('parallel1') {
             parallel {
                 stage('one') {
                     steps {
@@ -21,5 +27,13 @@ pipeline {
                 }
             }
         }
+
+        stage('parallel2') {
+            steps {
+                sh 'echo "parallel2"'
+            }
+        }
+
+        }}
     }
 }
