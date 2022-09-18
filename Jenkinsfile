@@ -1,53 +1,65 @@
 pipeline {
-    agent {label 'test'}
+    agent { label 'test' }
     stages {
-        stage('prepare-ducttape') {
+        stage('Normal') {
             steps {
-                sh 'echo "prepare-ducttape"'
+                sh 'echo "stage one"'
             }
         }
-
-        parallel {
-            stage('frontend') {
-                stages {
-                    stage('install-dependencies') {
-                        steps {
-                            sh 'echo "install-dependencies"'
-                        }
+        stage('Parallel') {
+            parallel {
+                stage('paraINpara') {
+                    steps {
+                        sh 'echo "nesting parallel not supported"'
                     }
                 }
-
-                parallel {
-                    stage('test-coverage') {
-                        steps {
-                            sh 'echo "test-coverage"'
+                stage('seqINpara') {
+                    stages {
+                        stage('one') {
+                            steps {
+                                echo "stage one"
+                            }
                         }
-                    }
-                    stage('storybook') {
-                        steps {
-                            sh 'echo "storybook"'
+                        stage('two') {
+                            steps {
+                                echo "stage one"
+                            }
                         }
-                    }
-
-                }
-            }
-
-            stage('backend') {
-                stages {
-                    stage('one') {
-                        step {
-                            sh 'echo "one"'
-                        }
-                    }
-
-                    stage('two') {
-                        step {
-                            sh 'echo "two"'
-                        }
-                    }
+                    }    
                 }
             }
         }
-
+        stage('Sequestial') {
+            stages {
+                stage('seqINseq') {
+                    stages {
+                        stage('one') {
+                            steps {
+                                echo "stage one"
+                            }
+                        }
+                        stage('two') {
+                            steps {
+                                echo "stage one"
+                            }
+                        }
+                    }  
+                }
+                stage('paraINseq') {
+                    parallel {
+                        stage('one') {
+                            steps {
+                                echo "stage one"
+                            }
+                        }
+                        stage('two') {
+                            steps {
+                                echo "stage one"
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
